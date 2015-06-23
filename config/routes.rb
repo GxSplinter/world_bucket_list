@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: {
-          sessions: 'users/sessions'
-        }
 
-  as :user do
-    get 'users/profile' => 'devise/sessions#show', as: :user_profile
+  resource :user, only: [:show] do
+    resources :destinations, only: [:new, :create, :destroy] do
+      resources :todos, only: [:new, :edit, :create, :update, :destroy]
+    end
   end
+
+  devise_for :users
 end

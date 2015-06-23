@@ -1,0 +1,21 @@
+%h1 Listing todos
+
+%table
+  %thead
+    %tr
+      %th Details
+      %th
+      %th
+      %th
+
+  %tbody
+    - @todos.each do |todo|
+      %tr
+        %td= todo.details
+        %td= link_to 'Show', todo
+        %td= link_to 'Edit', edit_user_destination_todo_path(todo)
+        %td= link_to 'Destroy', todo, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Todo', new_user_destination_todo_path

@@ -1,0 +1,25 @@
+%h1
+  =current_user.email
+  =button_to('Sign_out', destroy_user_session_path, method: :delete)
+  %br
+
+  %h3 Destinations:
+  -if @destinations
+    -@destinations.each do |destination|
+      =field_set_tag(destination.name, id: destination.id) do
+        -if @todos = destination.todos.sort_by { |t| t.id }
+          -@todos.each do |td|
+            %fieldset
+              %legend
+                %strong ToDo's
+              =simple_format td.details
+              =button_to('Edit this ToDo', [:edit, :user, destination, td], method: :get)
+              =button_to('Remove this ToDo', [:user, destination, td], method: :delete)
+
+        =button_to('Add ToDo', [:new, :user, destination, :todo], method: :get)
+        =button_to('Remove this destination', [:user, destination], method: :delete)
+      %br
+  -else
+    %h3 You have no destinations added!
+
+  =button_to('Add a Destination', new_user_destination_path, method: :get)

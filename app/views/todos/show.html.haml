@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Details:
+  = @todo.details
+
+= link_to 'Edit', edit_user_destination_todo_path(@todo)
+
+= link_to 'Back', user_path

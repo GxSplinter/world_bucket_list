@@ -1,19 +1,21 @@
 Given(/^I am registered$/) do
-  User.create!(email: 'bo@bo.com', password: 'ahardpassword')
+  visit new_user_registration_path
+
+  fill_in 'Email', with: 'ben@ben.ben'
+  fill_in 'Password', with: 'ben@ben.ben'
+  fill_in 'Password confirmation', with: 'ben@ben.ben'
+
+  click_button 'Sign up'
 end
 
-When(/^I add a Destination$/) do
-  pending # express the regexp above with the code you wish you had
+When(/^I add a uniquely named Destination$/) do
+  click_button 'Add a Destination'
+
+  fill_in 'Name', with: 'Ireland'
+
+  click_button 'Create Destination'
 end
 
-When(/^the Destination is unique$/) do
-  pending # express the regexp above with the code you wish you had
-end
-
-Then(/^the Destinations appear on my profile$/) do
-  pending # express the regexp above with the code you wish you had
-end
-
-Then(/^they are in alphabetical order$/) do
-  pending # express the regexp above with the code you wish you had
+Then(/^the Destination appears on my Bucket List$/) do
+  expect(page).to have_content('Ireland')
 end

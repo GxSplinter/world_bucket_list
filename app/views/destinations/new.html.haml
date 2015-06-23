@@ -1,0 +1,7 @@
+%body
+  %h1 Add a new destination
+
+  =simple_form_for [current_user, @destination] do |d|
+    =d.input :name
+    =d.submit 'Create Destination'
+
