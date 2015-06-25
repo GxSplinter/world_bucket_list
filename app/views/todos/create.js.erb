@@ -1,2 +1,2 @@
-$("<%= j(render @todo) %>").prependTo("fieldset#<%= @todo.destination.id %>");
+$("<%= j(render @todo) %>").appendTo("fieldset#<%= dom_id(@todo.destination) %>");
 $("#new_todo").fadeOut();

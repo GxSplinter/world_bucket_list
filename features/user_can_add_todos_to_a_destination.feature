@@ -3,6 +3,7 @@ Feature: A User can add ToDos to a Destination
   I want to add ToDo entries
   So I can organise my life
 
+  @javascript
   Scenario: susscessfully adding ToDos to a Destination
   Given I am registered
   And I have created Destinations

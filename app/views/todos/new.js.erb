@@ -1,1 +1,1 @@
-$("#todo_form").html("<%= j(render 'form') %>").hide().show('slow');
+$("section#<%= dom_id(@destination) %>").html("<%= j(render 'form') %>").hide().show('slow');

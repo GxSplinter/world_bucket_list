@@ -1,5 +1,5 @@
 When(/^I add a ToDo to a Destination$/) do
-  within "fieldset##{Destination.last.id}" do
+  within "fieldset#destination_#{Destination.last.id}" do
     click_button 'Add ToDo'
   end
 
@@ -10,7 +10,8 @@ When(/^I add a ToDo to a Destination$/) do
 end
 
 Then(/^the ToDo appears under its Destination on the Bucket List$/) do
-  within "fieldset##{Destination.last.id}" do
+  save_and_open_page
+  within "fieldset#destination_#{Destination.last.id}" do
     expect(page).to have_content('Your nan')
   end
 end

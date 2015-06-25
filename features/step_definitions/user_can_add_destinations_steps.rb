@@ -9,7 +9,7 @@ Given(/^I am registered$/) do
 end
 
 When(/^I add a uniquely named Destination$/) do
-  click_button 'Add a Destination'
+  find_button('Add a Destination').click
 
   fill_in 'Name', with: 'Ireland'
 

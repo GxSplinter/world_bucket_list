@@ -6,11 +6,11 @@
   %h3 Destinations:
   -if @destinations
     -@destinations.each do |destination|
-      =field_set_tag(destination.name, id: destination.id) do
+      =field_set_tag(destination.name, id: dom_id(destination)) do
         =render destination.todos
 
         =button_to('Add ToDo', [:new, :user, destination, :todo], remote: true, method: :get)
-        %section#todo_form
+        =content_tag :section, '', id: dom_id(destination)
         =button_to('Remove this destination', [:user, destination], method: :delete)
       %br
   -else
