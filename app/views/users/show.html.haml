@@ -7,16 +7,10 @@
   -if @destinations
     -@destinations.each do |destination|
       =field_set_tag(destination.name, id: destination.id) do
-        -if @todos = destination.todos.sort_by { |t| t.id }
-          -@todos.each do |td|
-            %fieldset
-              %legend
-                %strong ToDo's
-              =simple_format td.details
-              =button_to('Edit this ToDo', [:edit, :user, destination, td], method: :get)
-              =button_to('Remove this ToDo', [:user, destination, td], method: :delete)
+        =render destination.todos
 
-        =button_to('Add ToDo', [:new, :user, destination, :todo], method: :get)
+        =button_to('Add ToDo', [:new, :user, destination, :todo], remote: true, method: :get)
+        %section#todo_form
         =button_to('Remove this destination', [:user, destination], method: :delete)
       %br
   -else

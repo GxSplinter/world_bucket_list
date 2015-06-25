@@ -15,6 +15,11 @@ class TodosController < ApplicationController
   def new
     @destination = current_user.destinations.find(params[:destination_id])
     @todo = @destination.todos.new
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # GET /todos/1/edit
@@ -30,7 +35,10 @@ class TodosController < ApplicationController
     @todo = @destination.todos.create(todo_params)
 
     if @todo.valid?
-      redirect_to user_path
+      respond_to do |format|
+        format.html { redirect_to user_path}
+        format.js
+      end
     else
       render :new
     end
@@ -39,13 +47,13 @@ class TodosController < ApplicationController
   # PATCH/PUT /todos/1
   # PATCH/PUT /todos/1.json
   def update
+    @destination = current_user.destinations.find(params[:destination_id])
+    @todo = @destination.todos.find(params[:id])
     respond_to do |format|
       if @todo.update(todo_params)
         format.html { redirect_to [:user], notice: 'Todo was successfully updated.' }
-        format.json { render :show, status: :ok, location: @todo }
       else
         format.html { render :edit }
-        format.json { render json: @todo.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -72,6 +80,6 @@ class TodosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def todo_params
-      params.require(:todo).permit(:details)
+      params.require(:todo).permit(:details, :location)
     end
 end

@@ -1,0 +1,5 @@
+=div_for(todo) do
+  =simple_format todo.details
+  =todo.location
+  =button_to('Edit this ToDo', [:edit, :user, todo.destination, todo], method: :get)
+  =button_to('Remove this ToDo', [:user, todo.destination, todo], method: :delete)

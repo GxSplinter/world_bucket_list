@@ -1,4 +1,4 @@
-= form_for [:user, @destination, @todo] do |f|
+= simple_form_for [:user, @destination, @todo], remote: true, authenticity_token: true do |f|
   - if @todo.errors.any?
     #error_explanation
       %h2= "#{pluralize(@todo.errors.count, "error")} prohibited this todo from being saved:"
@@ -9,5 +9,9 @@
   .field
     = f.label :details
     = f.text_area :details
+
+  .field
+    = f.input :location
+
   .actions
     = f.submit 'Save'
