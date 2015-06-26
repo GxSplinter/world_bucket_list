@@ -4,9 +4,10 @@ class TodosController < ApplicationController
   # GET /todos
   # GET /todos.json
   def index
-    @todos = Todo.all
-    render json: Todo.all
-    render json: {}
+    @todos = current_user.todos
+    respond_to do |format|
+      format.json { render json: @todos }
+    end
   end
 
   # GET /todos/1

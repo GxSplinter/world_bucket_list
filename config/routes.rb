@@ -6,5 +6,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :todos, only: [:index]
+
   devise_for :users
 end

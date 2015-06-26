@@ -1,45 +1,55 @@
 var map;
 
 $(document).ready(function() {
-  showMap();
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showMap, loadMarkers, error);
+  } else {
+    alert('geolocation not supported');
+  }
 });
 
-function showMap() {
-  var mapOptions = {
-    center: new google.maps.LatLng(-34.397, 150.644),
-    zoom: 1,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
-
-  map = new google.maps.Map(document.getElementById("map-canvas"),
-      mapOptions);
-
-  loadMarkers();
+function error(msg) {
+  alert('error: ' + msg);
 }
 
-function loadMarkers() {
+function showMap(position) {
+  var mapOptions = {
+    center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+    zoom: 5,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  map = new google.maps.Map(document.getElementById("map-canvas"),
+  mapOptions);
+
+  loadMarkers(position);
+}
+
+function loadMarkers(position) {
   $.ajax({
     url: '/todos.json',
     dataType: 'json',
     success: function(json) {
-      console.log(json);
       var bounds = new google.maps.LatLngBounds();
 
       _(json).each(function(todo) {
-        binding.pry
-        addMarker(todo.latitude, todo.longitude, todo.name);
-        bounds.extend(new google.maps.LatLng(todo.latitude, todo.longitude));
+        if (typeof todo.latitude == 'number' && typeof todo.longitude == 'number') {
+          addMarker(todo.latitude, todo.longitude, todo.name);
+          bounds.extend(new google.maps.LatLng(todo.latitude, todo.longitude));
+        }
       });
 
+      addMarker(position.coords.latitude, position.coords.longitude, 'http://maps.google.com/intl/en_us/mapfiles/ms/micons/orange-dot.png', 'Me');
+      bounds.extend(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
       map.fitBounds(bounds);
     }
   });
 }
 
-function addMarker(lat, lng, title) {
+function addMarker(lat, lng, icon, title) {
   var marker = new google.maps.Marker({
     position: new google.maps.LatLng(lat, lng),
     map: map,
+    icon: icon,
     title: title
   });
 }
