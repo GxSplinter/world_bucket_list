@@ -38,14 +38,14 @@ function loadMarkers(position) {
         }
       });
 
-      addMarker(position.coords.latitude, position.coords.longitude, 'http://maps.google.com/intl/en_us/mapfiles/ms/micons/orange-dot.png', 'Me');
+      addMarker(position.coords.latitude, position.coords.longitude, 'Me', 'http://maps.google.com/intl/en_us/mapfiles/ms/micons/orange-dot.png');
       bounds.extend(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
       map.fitBounds(bounds);
     }
   });
 }
 
-function addMarker(lat, lng, icon, title) {
+function addMarker(lat, lng, title, icon) {
   var marker = new google.maps.Marker({
     position: new google.maps.LatLng(lat, lng),
     map: map,

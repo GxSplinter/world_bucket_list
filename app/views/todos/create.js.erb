@@ -1,3 +1,4 @@
 $("<%= j(render @todo) %>").appendTo("fieldset#<%= dom_id(@todo.destination) %>");
+debugger;
 addMarker(<%= @todo.latitude %>, <%= @todo.longitude %>, "<%= @todo.details%>");
 $("#new_todo").html("");
